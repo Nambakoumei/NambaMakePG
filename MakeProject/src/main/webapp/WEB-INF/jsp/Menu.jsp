@@ -16,7 +16,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>メニュー</title>
 	</head>
 	
 <%--- HTML(Body) --%>	
@@ -27,12 +27,11 @@
 			<%--- ログイン成功時 --%>		
 	
 			<%--- 選択メニュー内容 --%>
-			<a href= "Main">処理１</a><br>
+			<%-- <a href= "Main">処理１</a><br>--%>
+			<input type ="button" value ="解答開始" onclick="location.href='AnsStart'"> 
 			
-			
-			<%--- ログアウト --%> 
-			<%--- <button type="button" onclick="Logout.java">ログアウト</button> --%>
-			<a href="Logout">ログアウト</a>
+			<%--- ログアウト --%> 			
+			<input type ="button" value ="ログアウト" onclick="location.href='Logout'">
 
 		<% } else { %>
 			<%--- ログイン失敗時 --%>

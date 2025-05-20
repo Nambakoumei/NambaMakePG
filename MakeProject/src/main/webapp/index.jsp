@@ -23,7 +23,7 @@
 		<form action = "Login" method = "POST">
 		
 			ユーザー名：<input type ="text" name ="name"><br>
-			パスワード；<input type ="password" name ="pass" ><br>
+			パスワード：<input type ="password" name ="pass" ><br>
 			
 			<%-- ログインボタン --%>
 			<input type ="submit" value ="ログイン">
