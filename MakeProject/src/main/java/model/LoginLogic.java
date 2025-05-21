@@ -5,7 +5,7 @@ public class LoginLogic {
 
 	public boolean execute(User user) {
 		//パスワード判定
-		if(user.getPass().equals("1111")){
+		if(user.getPass().equals("2222")){
 			//判定OK →Trueを返す
 			return true;
 					
