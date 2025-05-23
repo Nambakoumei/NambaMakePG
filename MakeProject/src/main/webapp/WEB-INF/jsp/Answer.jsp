@@ -6,6 +6,7 @@
 <%@ page import = "java.util.Random" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "java.util.List" %>
+<%@ page import = "model.AnswerLogic" %>
 
 <%
 	// -- 2025/05/21 
@@ -61,6 +62,11 @@
 						
 	}
 	
+	//定義
+	AnswerLogic.QuestFLG qFLG = new AnswerLogic().new QuestFLG();
+	qFLG.setQuestFLG(true);
+		
+	//AnswerLogic a = new AnswerLogic();			
 %>
 
 <%--- HTML内容--%>
@@ -78,16 +84,51 @@
 		<%-- 現在 仮画面 --%>		
 		<h2>解答画面</h2>
 		
-		<% for (int i = 0; i < outQuest.size() ;i++){ %>			 
-			問題<%= i+1 %>：<%= outQuest.get(i) %> <br>    
-		<% ;} %>
+		<% 
+			boolean endFLG = false;
+			int cnt = 0;
 				
-		    解答  : <input type ="text"><br><br>
+			while(endFLG == false){
 		
-		<input type ="button" value ="次" onclick="history.back()">
+				//問題表示
+		%>
+				問題<%= cnt+1 %>：<%= outQuest.get(cnt) %> <br>
 		
-		<input type ="button" value ="解答終了" onclick="history.back()">
-		<input type ="button" value ="メニュー画面へ" onclick="history.back()">
+		<%      				
+				qFLG.setQuestFLG(false);
+		
+				//if (qFLG.getQuestFLG() == true)
+				//{
+					cnt = cnt+=1; 
+		
+					if(cnt > 2){	
+						endFLG = true;
+						break;
+					}
+				//}
+			} 
+		%>
+								
+		<%-- 			
+		<%= qFLG.getQuestFLG() %><br>
+		<% qFLG.setQuestFLG(false); %> 
+		--%>		
 				
+		解答  : <input type ="text"><br><br>
+		
+		<%-- <%=qFLG.getQuestFLG()%><br> --%>
+		
+		<input type ="button" value ="次" onclick="nextBotton()"> 
+		<script type="text/javascript">
+				function nextBotton() 
+				{
+					<% qFLG.setQuestFLG(true); %>	
+				}
+		</script>
+									
+		<input type ="button" value ="解答終了" onclick="history.back()"> <br>
+				
+		<%-- 内容確認 --%>				
+		<%= qFLG.getQuestFLG() %>
 	</body>	
 </html>
