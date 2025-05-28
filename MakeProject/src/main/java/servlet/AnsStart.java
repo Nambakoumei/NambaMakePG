@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import model.AnsInit;
 
-
 /**
  * Servlet implementation class AnsStart
  */
@@ -27,25 +26,23 @@ public class AnsStart extends HttpServlet {
 		
 		
 		//インスタンス作成(問題)
-		
-		
+				
 		//初期処理(解答）
 		AnsInit ansInit = new AnsInit();
 		
-		boolean isInit  = ansInit.check() ;
-				
+		boolean isInit  = ansInit.check();
+		
+		
 		if (isInit == true) {
 			//処理
 						
 		}
-		
+				
 		//解答画面にフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/Answer.jsp");
 		dispatcher.forward(request, response);
 	}
 	
-	
-	/*
 	// -- doPost
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -55,6 +52,7 @@ public class AnsStart extends HttpServlet {
 		//インスタンス作成(問題)
 		
 		
+		/*
 		//初期処理(解答）
 		AnsInit ansInit = new AnsInit();
 		
@@ -64,12 +62,13 @@ public class AnsStart extends HttpServlet {
 			//処理
 						
 		}
+		*/
 		
 		//解答画面にフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/Answer.jsp");
-		dispatcher.forward(request, response);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/Answer.jsp");
+		//dispatcher.forward(request, response);
 		
 	}
-	*/
+
 
 }

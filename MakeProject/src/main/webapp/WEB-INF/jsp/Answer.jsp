@@ -3,70 +3,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%--- Javaプログラム--%>
-<%@ page import = "java.util.Random" %>
-<%@ page import = "java.util.ArrayList" %>
-<%@ page import = "java.util.List" %>
 <%@ page import = "model.AnswerLogic" %>
 
-<%
-	// -- 2025/05/21 
+<%	
 	//定義
-	Random rand = new Random(); 
-	String questBuff = "";		// S
-	List<String> outQuest = new ArrayList<String>(); 	
-	String calc = "";
+	//(全体)
+	AnswerLogic ansLogic = new AnswerLogic();
 	
-	//int questCnt = 3; 
-	
-	for (int i = 0 ; i < 3; i++){
-		
-		//ランダムで生成
-		//計算式	
-		int calcKbn = rand.nextInt(3)+1;   //1:加算・2:減算・3:乗算・4:除算
-
-		//記号
-		switch(calcKbn){
-			case 1:
-				calc = " ＋ ";
-				break;
-		
-			case 2:
-				calc = " － ";
-				break;
-		
-			case 3:
-				calc = " × ";
-				break;
-		
-			default:
-				calc = " ÷ ";
-		}
-				
-		//左辺
-		int num1 = rand.nextInt(10);	
-		int num2 = 0;
-	
-		//右辺
-		if(calcKbn == 3){
-			// 除算の場合は0で割れないので1を足す(最低値:1～)		
-			num2 = rand.nextInt(10)+1;
-		
-		}else{
-			// 
-			num2 = rand.nextInt(10);
-		}
-	
-		//問題文を生成
-		questBuff = num1 + calc + num2 + " = " ;
-		outQuest.add(questBuff);
-						
-	}
-	
-	//定義
+	//(フラグ)
 	AnswerLogic.QuestFLG qFLG = new AnswerLogic().new QuestFLG();
-	qFLG.setQuestFLG(true);
+	//qFLG.setQuestFLG(true);
+
+	//(問題作成）
+	AnswerLogic.MakeQuestion mkQst = ansLogic.new MakeQuestion();  
+	mkQst.makeQuestion();
 		
-	//AnswerLogic a = new AnswerLogic();			
+	boolean endFLG = false;		//終了フラグ
+	int cnt = 0;				//問題カウント
+
 %>
 
 <%--- HTML内容--%>
@@ -81,54 +35,58 @@
 	
 <%--- HTML(Body) --%>	
 	<body>
-		<%-- 現在 仮画面 --%>		
+						
 		<h2>解答画面</h2>
+					
+		<%
+			//boolean endFLG = false;		//終了フラグ
+			//int cnt = 0;				//問題カウント
+
+			qFLG.setQuestFLG(true);			//フラグをON
 		
-		<% 
-			boolean endFLG = false;
-			int cnt = 0;
-				
-			while(endFLG == false){
-		
-				//問題表示
+			while(endFLG == false)
+			{
+				//問題表示		
+				//if(qFLG.getQuestFLG() == true){
 		%>
-				問題<%= cnt+1 %>：<%= outQuest.get(cnt) %> <br>
-		
-		<%      				
-				qFLG.setQuestFLG(false);
-		
+				   <%-- = cnt --%>
+					問題<%= cnt+1 %>：<%=mkQst.getQuestion()%>
+					<%= mkQst.getAnswer()%><br> 
+					<%--  <input type ="text"><br> --%>	
+		<%							
+				//	qFLG.setQuestFLG(false);		
+				//}
+				
 				//if (qFLG.getQuestFLG() == true)
-				//{
-					cnt = cnt+=1; 
-		
-					if(cnt > 2){	
+				//{									
+					cnt = cnt+=1;			//カウントUP					
+					mkQst.makeQuestion();	//問題作成
+					
+					if(cnt > 2){
+						//問題終了時
 						endFLG = true;
 						break;
-					}
-				//}
-			} 
+					}			
+				//}								
+			}
 		%>
 								
-		<%-- 			
-		<%= qFLG.getQuestFLG() %><br>
-		<% qFLG.setQuestFLG(false); %> 
-		--%>		
+		<br>								
+		<input type ="button" value ="次" onclick="nextBotton()"> 		
+		<%-- <input type ="submit" value ="次" > --%>
 				
-		解答  : <input type ="text"><br><br>
-		
-		<%-- <%=qFLG.getQuestFLG()%><br> --%>
-		
-		<input type ="button" value ="次" onclick="nextBotton()"> 
+		<%-- ボタン押下時処理 --%>
 		<script type="text/javascript">
 				function nextBotton() 
 				{
+					<%-- cnt = cnt+=1; --%>
 					<% qFLG.setQuestFLG(true); %>	
+					<%= qFLG.getQuestFLG() %>
 				}
 		</script>
-									
+											
 		<input type ="button" value ="解答終了" onclick="history.back()"> <br>
 				
-		<%-- 内容確認 --%>				
-		<%= qFLG.getQuestFLG() %>
+	
 	</body>	
 </html>
